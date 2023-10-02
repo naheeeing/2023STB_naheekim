@@ -1,19 +1,43 @@
 # table()함수/구분 1개의 인자를 가지고 도수분포표 작성
-table(K $진출대륙명)
+table(KOTRA2023 $진출대륙명)
 
 # table()함수/2개의 인자를 가지고 교차표를 작성
-table(K $진출대륙명, K $진출형태)
+table(KOTRA2023 $진출대륙명, KOTRA2023 $진출형태)
 
 #  상대도수 계산
-ECN <- table(K $진출대륙명)
+ECN <- table(KOTRA2023 $진출대륙명)
 prop.table(ECN)
 
 #막대그래프
-barplot(table(K $진출대륙명))
+barplot(table(KOTRA2023 $진출대륙명))
+entry <- table(KOTRA2023 $진출대륙명, KOTRA2023 $진출형태)
+barplot(entry, legend = TRUE) #범례표시하는 옵션션
 
-entry <- table(K $진출대륙명, K $진출형태)
-barplot(entry, legend = TRUE)
+#막대그래프 x,y축 명칭지정,y축의 최대최소값 지정
+barplot(table(KOTRA2023 $진출대륙명),col=pal1, xlab="진출대륙명",ylab="진출기업수",ylim=c(0,10000))
+
+#막대그래프에 값 할당하기
+bp <-barplot(table(KOTRA2023 $진출대륙명),col=pal1, xlab= "진출대륙명", ylab= "진출기업수", ylim=c(0,10000))
+entry <-c(333,828,9154,104,716,444,374)
+text(x=bp, y=entry, labels=entry, pos=3)
+
+#회전
+barplot(table(KOTRA2023 $진출대륙명),col=pal1, xlab= "진출대륙명", ylab= "진출기업수", xlim=c(0,10000), horiz=TRUE)
 
 #파이차트
-pie(table(K $진출대륙명))
-pie(table(K $투자형태))
+pie(table(KOTRA2023 $진출대륙명))
+pie(table(KOTRA2023 $투자형태))
+
+#파이차트 Colors에 색상 지정
+colors <-c("red", "orange", "yellow", "green", "blue")
+pie(table(KOTRA2023 $투자형태), col=colors, main="해외진출기업의투자형태")
+
+#팔레트 설치
+install.packages("RColorBrewer")
+library(RColorBrewer)
+display.brewer.all()
+
+#파이차트에 팔레트 색상 적용
+pal1 <-brewer.pal(5, 'Set3')pie(table(KOTRA2023 $투자형태), col=pal1, main="해외진출기업의투자형태")
+
+#히스토그램
